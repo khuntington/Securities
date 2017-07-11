@@ -1,0 +1,19 @@
+public void createForeignKeySample() {
+   try {
+      Opportunity newOpportunity = new Opportunity();
+      newOpportunity.setName("OpportunityWithFK");
+      newOpportunity.setStageName("Prospecting");
+      Calendar dt = connection.getServerTimestamp().getTimestamp();
+      dt.add(Calendar.DAY_OF_MONTH, 7);
+      newOpportunity.setCloseDate(dt);
+ 
+      Account parentAccountRef = new Account();
+      parentAccountRef.setMyExtId__c("SAP1111111");
+      newOpportunity.setAccount(parentAccountRef);
+ 
+      SaveResult[] results = connection
+            .create(new SObject[] { newOpportunity });
+   } catch (ConnectionException ce) {
+      ce.printStackTrace();
+   }
+}
